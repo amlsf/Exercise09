@@ -1,19 +1,49 @@
 # Multiply all the elements in a list
 def multiply_list(l):
-    return 1
+    # print 'the length is :', len(l)
+    total = 1
+
+    if len(l) == 1:
+        return 1
+    else:
+        last_var = l.pop()
+        total = multiply_list(l) * last_var
+        # print 'now the length is : ', len(l)
+        # print 'total', total
+    return total
 
 # Return the factorial of n
-def factorial(n):
-    return 1
+def fact(n):
+    if n == 1:
+        return 1
+    else:
+       total = fact(n-1) * n
+    return total
 
 # Count the number of elements in the list l
 def count_list(l):
-    return
+    total = 0
+    # print 'total at the top of the function is: ', total
+
+    if l == []: # list_length == 0:
+        return 0
+    else:
+        l.pop()
+        total = count_list(l) + 1
+        # print 'total is : ', total
+        # print 'total', total
+    return total
 
 # Sum all of the elements in a list
 def sum_list(l):
-    return 0
+    total = 0
 
+    if l == []: # list_length == 0:
+        return 0
+    else:
+        var = l.pop()
+        total = sum_list(l) + var
+    return total
 
 # Reverse a list without slicing or loops
 def reverse(l):
