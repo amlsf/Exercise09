@@ -1,3 +1,6 @@
+# TODO do code review
+# TODO Try everything without pop
+
 # Multiply all the elements in a list
 def multiply_list(l):
     # print 'the length is :', len(l)
@@ -47,16 +50,43 @@ def sum_list(l):
 
 # Reverse a list without slicing or loops
 def reverse(l):
-    return []
+
+# TODO What should the base case be??? see other methods of doing this with other base cases
+    if l == []: 
+        return []
+    else:
+        word = l.pop()
+        reverse(l)
+        l.insert(0, word)
+
+    return l
 
 # Fibonacci returns the nth fibonacci number. The nth fibonacci number is
 # defined as fib(n) = fib(n-1) + fib(n-2)
+
+# TODO Understand this better, see drawing to understand mechanism. But in this case, really just have to trust it works
 def fibonacci(n):
-    pass
+    if n <= 1:
+        return 1
+    else:         
+        return fibonacci(n-1) + fibonacci(n-2)
 
 # Finds the item i in the list l.... RECURSIVELY
+# TODO check that i is an index, CHECK if I am doing this correctly? base case return or pass both work? 
+#   Why can't I just put it in the base case return (if base case: return l[i]) - returns None?
 def find(l, i):
-    return None
+    # print "this is the list at the top of the chart: ", l
+    if len(l) == i+1:
+        pass #TODO or return alone works too
+        # print "you are awesome!"
+        # TODO why doesn't it work just to have the return statement from down below here? 
+            # Because it disappears when the function is run again, when it goes backwards
+    else: 
+        new_item = l.pop()
+        # print "this is what was popped off: ", new_item         
+        find(l, i)
+
+    return l[i] # TODO, this could go above too, it will keep running backwards and capture the last time? 
 
 # Determines if a string is a palindrome
 def palindrome(some_string):

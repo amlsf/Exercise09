@@ -21,11 +21,7 @@ def reverse(l):
         return l
     else:
 
-
     # when you reach the middle, return all the reversed values
-
-
-
 
 listtest = [2, 10, 'cat']
 print reverse(listtest)
