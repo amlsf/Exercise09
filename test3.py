@@ -1,15 +1,21 @@
-def fold_paper(width, height, folds):
-    if folds == 0:
-        return 
-    else:
-        if height >= width:
-            height = fold_paper(width, height, folds-1)[1]
-        else: 
-            width = fold_paper(width, height, folds-1)[0]
+def multiply_list(l):
+    # print 'the length is :', len(l)
+    # print "the list at the top of the function is: ", l
 
-    return (width, height)
+    if len(l) == 0:
+        return 1
+    # could also modify list this way: return multiply_list(l[1:]) * l[0]
+    # print "The term that was popped is: ", last_var
+    # print "the new list after popping is: ", l
 
-print fold_paper(10,5,3)
+    return l.pop() * multiply_list(l)
+    # print 'POST RECURSIVE FUNCTION CALL: Now the length is : ', len(l)
+    # print "the term that was popped is: ", last_var
+    # print 'total', total
+
+
+l = [1,2,3]
+print multiply_list(l)
 
 
 """

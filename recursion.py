@@ -1,35 +1,114 @@
 # TODO do code review
-# TODO Try everything without pop
-# Note: doesn't matter where you put the return, as long as after recursive function call(?)
 
-# Multiply all the elements in a list
+# NOTE: better to do without pop so it doesn't destroy list. 
+#   Don't need all those variables or totals, 
+#   Don't need else to reduce indent and lines of code, also will prevent bugs and make eaiser to extend with elif
+# NOTE Don't need a variable for pop and don't need total
+# NOTE: better to use a slicing function so it does not destroy the original list like pop would. 
+
+# NOTE Need to have recall of recursive function in return at all times
+#   if the list item is in the list, return conditional, otherwise don't know
+#   but can ask the function to RETURN an answer because it knows the answer. 
+#   Similar to fold_paper exercise when just sent the answer straight through 
+#   without having to recursively calculate anything
+#   need to always be conscious returning something when put return recursive function
+# NOTE This function knows the answer (which is either False from the bottom or True from the base case)
+# NOTE Normally doesn't matter where you put the return, but it does here because want to keep loop going and not end
+# NOTE base case return is important to setting tone
+#   if have call function at end without any additional operations, will send out final output striaght through
+#   will return either what was given in the base case function or the other if/else portion, so just call itself as final return
+
+
+
+"""
+Exercise 9: Recursion
+---------------------
+
+The Evil Wizard Malloc has attacked you and taken away your ability
+to use loops!  The only way you can defeat him is by fighting back
+using the power of recursion!
+
+Below are function stubs for a variety of functions that are able
+to be solved recursively.  For this exercise, you are not allowed
+to use:
+
+  * for loops
+  * "while" loops
+  * You may use list slicing, but you may not use the "reverse" slice
+    (e.g, list[::-1])
+  * Any built-in function that achieves the same result
+
+You can use the included test_recursion.py script to test that your
+functions work (and if you need hints for what the expected input/output 
+should be).
+
+"""
+
+
+# INSTRUCTIONS Multiply all the elements in a list
+
+# NOTE: better to do without pop so it doesn't destroy list. 
+#   Don't need all those variables or totals, 
+#   Don't need else to reduce indent and lines of code, also will prevent bugs and make eaiser to extend with elif
+
+# Doing With Pop
 def multiply_list(l):
-    # print 'the length is :', len(l)
-    # print "the list at the top of the function is: ", l
+    if len(l) == 0:
+        return 1
+    return l.pop() * multiply_list(l)
+
+# Doing Without Pop
+"""
+Method 2: 
+def multiply_list(l):
+    if len(l) == 1:
+        return l[0]
+    else:
+        return multiply_list(l[0:len(l)-1]) * l[len(l)-1]
+
+Method 3: 
+def multiply_list(l):
+    if len(l) == 1:
+        return l[0]
+    else:
+        return multiply_list(l[1:]) * l[0]
+
+Original  less good method: 
+def multiply_list(l):
     total = 1
 
     if len(l) == 0:
         return 1
     else:
         last_var = l.pop()
-        # print "The term that was popped is: ", last_var
-        # print "the new list after popping is: ", l
-
         total = multiply_list(l) * last_var
-        # print 'POST RECURSIVE FUNCTION CALL: Now the length is : ', len(l)
-        # print "the term that was popped is: ", last_var
-        # print 'total', total
     return total
+"""
 
-# Return the factorial of n
-def fact(n):
+
+
+# INSTRUCTIONS Return the factorial of n
+def factorial(n):
     if n == 1:
         return 1
     else:
-       total = fact(n-1) * n
+       total = factorial(n-1) * n
     return total
 
-# Count the number of elements in the list l
+
+
+# INSTRUCTIONS Count the number of elements in the list l without using loops or the len() function
+
+# Try without Pop
+def count_list(l):
+
+    if l == []: # list_length == 0:
+        return 0
+    return count_list(l[1:]) + 1
+
+"""
+Less good Method: doing with Pop and with unnecessary variables
+
 def count_list(l):
     total = 0
     # print 'total at the top of the function is: ', total
@@ -44,10 +123,26 @@ def count_list(l):
         total = count_list(l) + 1
         # print 'total is : ', total
     return total
+"""
 
 
-# Sum all of the elements in a list
+# INSTRUCTIONS Sum all of the elements in a list without using loops or the sum() function
+
+# NOTE Don't need a variable for pop and don't need total,
+#   better to use a slicing function so it does not destroy the original list like pop would. 
+
 def sum_list(l):
+    # total = 0
+    if l == []: # list_length == 0:
+        return 0
+
+    return l[0] + sum_list(l[1:])
+    # return l.pop() + sum_list(l)
+
+# TODO revisit why total doesn't matter here
+""" # Not as good way: 
+
+ def sum_list(l):
     total = 0
 
     if l == []: # list_length == 0:
@@ -57,53 +152,89 @@ def sum_list(l):
         total = sum_list(l) + var
     return total
 
-# Reverse a list without slicing or loops
+"""
+
+
+
+# INSTRUCTIONS Reverse a list recursively without loops, the reverse() function or list[::-1]
 def reverse(l):
-    # print "this is the latest list at the top of the function: ", l
-# TODO What should the base case be??? see other methods of doing this with other base cases
-# TODO Try doing this with switching outer edges
-    if l == []: 
-        print 100
-    else:
-        word = l.pop()
-        # print "this is the word you just popped ", word
-        reverse(l)
-        l.insert(0, word)
-        # print "this is the list at the bottom of the function after recursive function call: ", l
 
-    return l
+    if len(l) <= 1:
+# NOTE better to do <= 1 so that in case someone tries to put in an empty list 
+        return l
+    return [l.pop()] + reverse(l)
 
-# Fibonacci returns the nth fibonacci number. The nth fibonacci number is
-# defined as fib(n) = fib(n-1) + fib(n-2)
 
-# TODO Understand this better, see drawing to understand mechanism. But in this case, really just have to trust it works
+"""
+Another method with the switching
+
+def reverse(l):
+    if len(l) <= 1:
+        return l
+
+    tmp = l[0]
+    l[0] = l[-1]
+    l[-1] = tmp
+
+    return reverse(l[1:-1])
+"""
+
+
+
+# INSTRUCTIONS Fibonacci returns the nth fibonacci number. The nth fibonacci number is
+#   defined as fib(n) = fib(n-1) + fib(n-2)
 def fibonacci(n):
-    if n <= 1:
+    if n <= 2: #1
         return 1
     else:         
         return fibonacci(n-1) + fibonacci(n-2)
 
-# Finds the item i in the list l.... RECURSIVELY
-# TODO check that i is an index, CHECK if I am doing this correctly? base case return or pass both work? 
-#   Why can't I just put it in the base case return (if base case: return l[i]) - returns None?
+
+
+# INSTRUCTIONS Finds the item i in the list l.... RECURSIVELY
+# Return the item if it is in the list or None if not found.
+
 def find(l, i):
     # print "this is the list at the top of the chart: ", l
-    if len(l) == i+1:
-        pass #TODO or return alone works too
-        # print "you are awesome!"
-        # TODO why doesn't it work just to have the return statement from down below here? 
-            # Because it disappears when the function is run again, when it goes backwards
-    else: 
-        new_item = l.pop()
-        # print "this is what was popped off: ", new_item         
-        find(l, i)
+    if len(l) == 0:
+        return None
+    
+    if l[0] == i:
+        return l[0]
 
-    return l[i] # TODO, this could go above too, it will keep running backwards and capture the last time? 
+    return find(l[1:],i)
 
-# TODO is there a better way to do this?
-# TODO Doesn't seem to matter what I return here 
-# TODO: How would you do this so you don't have to modify the list like above? Could you do some sort of counter like I'm trying in the comments below?
-# Determines if a string is a palindrome
+# NOTE Need to have recall of recursive function in return at all times
+#   if the list item is in the list, return conditional, otherwise don't know
+#   but can ask the function to RETURN an answer because it knows the answer. 
+#   Similar to fold_paper exercise when just sent the answer straight through 
+#   without having to recursively calculate anything
+#   need to always be conscious returning something when put return recursive function
+
+
+
+#  INSTRUCTIONS Determines if a string is a palindrome
+# A palindrome is any string that is the same forwards and backwords.
+#   (e.g. radar, racecar, aibohphobia)
+# Solve recursively, 
+
+def palindrome(some_string):
+    if len(some_string) <= 1:
+        return True
+    
+    if some_string[0] == some_string[-1]: 
+        return palindrome(some_string[1:-1])
+# NOTE This function knows the answer (which is either False from the bottom or True from the base case)
+    else:
+        return False
+
+
+# NOTE Normally doesn't matter where you put the return, but it does here because want to keep loop going and not end
+
+
+"""
+# this is only looking at first set of outer letters
+
 def palindrome(some_string):
     if len(some_string) <= 1:
         return []
@@ -118,20 +249,33 @@ def palindrome(some_string):
         else: 
             return False
 
-"""
-        if some_string[0] == some_string[-1]:
-            palindrome(some_string)
-            print "this is a palindrome"
-            return True
-        else:
-            print "This is not a palindrome"
-            return False
 
-#    return # True or False
 """
 
-# Given the width and height of a sheet of paper, and the number of times to fold it, return the final dimensions of the sheet as a tuple. 
-#   Assume that you always fold in half along the longest edge of the sheet.
+
+# INSTRUCTIONS Given the width and height of a sheet of paper, and the number of times to fold it,
+#   return the final dimensions of the sheet as a tuple. 
+#   NOTE: Assume that you always fold in half along the longest edge of the sheet.
+
+
+# NOTE base case return is important to setting tone
+#   if have call function at end without any additional operations, will send out final output striaght through
+#   will return either what was given in the base case function or the other if/else portion, so just call itself as final return
+
+def fold_paper(width, height, folds):
+    if folds == 0:
+        return (width, height)
+
+    if height >= width:
+        height = float(height)/2
+    else: 
+        width = float(width)/2
+
+    return fold_paper(width, height, folds-1)
+
+
+"""
+# No need to do this because it can just send the result straight through without haven't to calculate anything recursively
 def fold_paper(width, height, folds):
     if folds == 0:
         return 
@@ -144,7 +288,38 @@ def fold_paper(width, height, folds):
 
     return (width, height)
 
-# Count up
-# Print all the numbers from 0 to target
+"""
+
+
+# INSTRUCTIONS Count up
+# Print all the numbers from 0 to target.
+# Use n to keep track of where you're at
+# ex, to count from 1 - 100, call count_up(100, 1)
+#
+# Note: we don't have a test case for this one, so just run this
+#       script directly
+#
+# Note #2: We're printing out the numbers, so this script does not 
+#          need to return anything!
 def count_up(target, n):
-    return
+    print n
+    if n != target:
+        count_up(target, n+1)
+
+
+# NOTE: count_up doesn't return anything so don't do "print" 
+# anytime doing same thing in if and else, in that case, no condition, always running it and pull outside of if stmt
+# switch around else to if and get rid of else
+
+"""
+    if n == target:
+        print n
+# NOTE: keeps running even if if stmt met because no return statement to end the function, 
+# so the else is necessary
+    else:
+        print n
+        count_up(target, n+1)
+"""
+
+if __name__ == "__main__":
+    count_up(100, 0)
