@@ -1,24 +1,3 @@
-# TODO do code review
-
-# NOTE: better to do without pop so it doesn't destroy list. 
-#   Don't need all those variables or totals, 
-#   Don't need else to reduce indent and lines of code, also will prevent bugs and make eaiser to extend with elif
-# NOTE Don't need a variable for pop and don't need total
-# NOTE: better to use a slicing function so it does not destroy the original list like pop would. 
-
-# NOTE Need to have recall of recursive function in return at all times
-#   if the list item is in the list, return conditional, otherwise don't know
-#   but can ask the function to RETURN an answer because it knows the answer. 
-#   Similar to fold_paper exercise when just sent the answer straight through 
-#   without having to recursively calculate anything
-#   need to always be conscious returning something when put return recursive function
-# NOTE This function knows the answer (which is either False from the bottom or True from the base case)
-# NOTE Normally doesn't matter where you put the return, but it does here because want to keep loop going and not end
-# NOTE base case return is important to setting tone
-#   if have call function at end without any additional operations, will send out final output striaght through
-#   will return either what was given in the base case function or the other if/else portion, so just call itself as final return
-
-
 
 """
 Exercise 9: Recursion
